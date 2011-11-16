@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if xrandr | grep "^LVDS1 connected [0-9]\{1,5\}x[0-9]\{1,5\}+[0-9]\{1,2\}+[0-9]\{1,2\} (.*$"
+then
+	xrandr --output LVDS1 --off --output VGA1 --auto
+else
+	xrandr --output VGA1 --off --output LVDS1 --auto
+fi
+
