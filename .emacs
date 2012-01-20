@@ -6,6 +6,7 @@
  '(c-basic-offset 4)
  '(column-number-mode t)
  '(inhibit-startup-screen t)
+ '(latex-run-command "pdflatex")
  '(scroll-bar-mode (quote right))
  '(show-paren-mode t))
 (custom-set-faces
