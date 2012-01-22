@@ -49,8 +49,18 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+if [ -n "$SSH_CONNECTION" ]; then
+    user_color='\[\033[01;33m\]'
+else
+    user_color="\[\033[01;32m\]"
+fi
+
+if [ "$(id -u)" = 0 ]; then
+    user_color='\[\033[01;31m\]'
+fi
+
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]: \[\033[01;34m\]\w\[\033[00m\]\n\$ '
+    PS1="${debian_chroot:+($debian_chroot)}${user_color}\u@\h\[\033[00m\]: \[\033[01;34m\]\w\[\033[00m\]\n\$ "
     #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]: \[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\n\$ '
