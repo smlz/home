@@ -1,0 +1,7 @@
+# Set terminal title:
+echo -ne "\033]0;WHATEVER\007" && command
+
+
+# backup
+rsync -av --delete-after --delete-excluded --exclude="*~" ~/musig/ \
+    /media/ext/musig
