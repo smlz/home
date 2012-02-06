@@ -122,5 +122,7 @@ export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 export EDITOR=nano
 
+#[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
 gitshortcuts=~/workspace/atizo-platform/scripts/git-shortcuts.rc
 test -f $gitshortcuts && source $gitshortcuts
