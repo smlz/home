@@ -58,7 +58,8 @@ if [ "$color_prompt" = yes ]; then
 	if [ -n "$SSH_CONNECTION" ]; then
 	    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;33m\]\u@\h\[\033[00m\]: \[\033[01;34m\]\w\[\033[00m\]\n\$ '
 	else
-	    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]: \[\033[01;34m\]\w\[\033[00m\] $(get-git-branch)$(test -n "$VIRTUAL_ENV" && echo " (env)")\n\$ '
+	    PROMPT_COMMAND='__PS1_RET=$?;'
+	    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]: \[\033[01;34m\]\w\[\033[00m\] $(get-git-branch)$(test -n "$VIRTUAL_ENV" && echo " (env)")\n$(test $__PS1_RET != 0 && echo -ne "\[\033[00;31m\]")$\[\033[00m\] '
 	fi
     fi
     #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]: \[\033[01;34m\]\w\[\033[00m\]\$ '
@@ -126,3 +127,5 @@ export EDITOR=nano
 
 gitshortcuts=~/workspace/atizo-platform/scripts/git-shortcuts.rc
 test -f $gitshortcuts && source $gitshortcuts
+
+true
