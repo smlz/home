@@ -96,7 +96,7 @@ fi
 #alias la='ls -A'
 #alias l='ls -CF'
 alias rm='rm -i'
-alias less=/usr/share/vim/vim72/macros/less.sh
+alias less=/usr/share/vim/vim73/macros/less.sh
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
