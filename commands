@@ -5,3 +5,8 @@ echo -ne "\033]0;WHATEVER\007" && command
 # backup
 rsync -av --delete-after --delete-excluded --exclude="*~" ~/musig/ \
     /media/ext/musig
+
+# Start platform
+cd ~/workspace/atizo-platform/src/atizo/; ./manage.py celeryd -v 2 -E -l INFO
+cd ~/workspace/atizo-platform/scripts/; ./runserver.sh
+sshfs marco@shares.atizo.org:/ shares/
