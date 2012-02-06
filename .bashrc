@@ -122,3 +122,5 @@ export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 export EDITOR=nano
 
+gitshortcuts=~/workspace/atizo-platform/scripts/git-shortcuts.rc
+test -f $gitshortcuts && source $gitshortcuts
