@@ -10,3 +10,4 @@ rsync -av --delete-after --delete-excluded --exclude="*~" ~/musig/ \
 cd ~/workspace/atizo-platform/src/atizo/; ./manage.py celeryd -v 2 -E -l INFO
 cd ~/workspace/atizo-platform/scripts/; ./runserver.sh
 sshfs marco@shares.atizo.org:/ shares/
+/home/marco/workspace/atizo-platform/scripts/jstruct.py
