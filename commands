@@ -8,8 +8,8 @@ rsync -av --delete-after --delete-excluded --exclude="*~" ~/musig/ \
 
 # music
 abcde -d /dev/sr1 -o vorbis:"-q 6"
-vorbisgain -a *ogg
-mp3gain -c -a *.mp3
+for d in *; do vorbisgain -a "$d"/*.mp3; done
+for d in *; do mp3gain -c -a "$d"/*.mp3; done
 
 # Start platform
 cd ~/workspace/atizo-platform/src/atizo/; ./manage.py celeryd -v 2 -E -l INFO
