@@ -8,8 +8,13 @@ rsync -av --delete-after --delete-excluded --exclude="*~" ~/musig/ \
 
 # music
 abcde -d /dev/sr1 -o vorbis:"-q 6"
-for d in *; do vorbisgain -a "$d"/*.mp3; done
+for d in *; do vorbisgain -a "$d"/*.ogg; done
 for d in *; do mp3gain -c -a "$d"/*.mp3; done
+
+# locate dead python code
+# todo: ignore *-steps.py, ignore 'def clean_*'
+find . -type f -name "*.py" -print0 | xargs -0 sed -n 's/^[ \t]*def \(.*\)(.*):.*$/\1/p' | sort | uniq| while read func; do if [ $(find . -type f -name "*.py" -print0 | xargs -0 grep "[ \.\t'\"(]$func[()'\"]" | grep -v "def $func(" | wc -l) -eq 0 ]; then echo $func; fi; done > dead_code
+for func in `cat dead_code `; do find . -type f -name "*.py" -print0 | xargs -0 grep "^[ \t]*def $func(.*):.*$"; done | sort > dead_funcs
 
 # Start platform
 cd ~/workspace/atizo-platform/src/atizo/; ./manage.py celeryd -v 2 -E -l INFO
