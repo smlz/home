@@ -123,6 +123,8 @@ export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 export EDITOR=nano
 export PYMACS_PYTHON=/usr/bin/python
+# Disable default virtualenv PS1 modification
+export VIRTUAL_ENV_DISABLE_PROMPT=TRUE
 
 #[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
