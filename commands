@@ -5,11 +5,16 @@ echo -ne "\033]0;WHATEVER\007" && command
 # backup
 rsync -av --delete-after --delete-excluded --exclude="*~" ~/musig/ \
     /media/ext/musig
+rsync --progress --modify-window=1 --update --recursive --times \
+  /home/mloskot/Pictures /mnt/nas/Pictures
 
 # music
 abcde -d /dev/sr1 -o vorbis:"-q 6"
 for d in *; do vorbisgain -a "$d"/*.ogg; done
-for d in *; do mp3gain -c -a "$d"/*.mp3; done
+for d in *; do mp3gain -c -a -s i "$d"/*.mp3; done
+
+mencoder INFILE -ovc xvid -xvidencopts bitrate=1000:autoaspect -vf pp=lb \
+-oac mp3lame -lameopts fast:preset=standard -o OUTFILE
 
 # locate dead python code
 # todo: ignore *-steps.py, ignore 'def clean_*'
