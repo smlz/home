@@ -17,7 +17,7 @@ find . -type f -name "*.py" -print0 | xargs -0 sed -n 's/^[ \t]*def \(.*\)(.*):.
 for func in `cat dead_code `; do find . -type f -name "*.py" -print0 | xargs -0 grep "^[ \t]*def $func(.*):.*$"; done | sort > dead_funcs
 
 # Start platform
-cd ~/workspace/atizo-platform/src/atizo/; ./manage.py celeryd -v 2 -E -l INFO
+cd ~/workspace/atizo-platform/src/atizo/; ./manage.py celeryd -v 2 -E -B -l INFO
 cd ~/workspace/atizo-platform/scripts/; ./runserver.sh
 sshfs marco@shares.atizo.org:/ shares/
 /home/marco/workspace/atizo-platform/scripts/jstruct.py
