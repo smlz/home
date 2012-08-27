@@ -10,7 +10,7 @@ rsync --progress --modify-window=1 --update --recursive --times \
 
 # music
 abcde -d /dev/sr1 -o vorbis:"-q 6"
-for d in *; do vorbisgain -a "$d"/*.ogg; done
+for d in *; do vorbisgain --album --fast "$d"/*.ogg; done
 for d in *; do mp3gain -s i "$d"/*.mp3; done
 
 mencoder INFILE -ovc xvid -xvidencopts bitrate=1000:autoaspect -vf pp=lb \
