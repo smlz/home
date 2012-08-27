@@ -21,6 +21,18 @@ mencoder INFILE -ovc xvid -xvidencopts bitrate=1000:autoaspect -vf pp=lb \
 find . -type f -name "*.py" -print0 | xargs -0 sed -n 's/^[ \t]*def \(.*\)(.*):.*$/\1/p' | sort | uniq| while read func; do if [ $(find . -type f -name "*.py" -print0 | xargs -0 grep "[ \.\t'\"(]$func[()'\"]" | grep -v "def $func(" | wc -l) -eq 0 ]; then echo $func; fi; done > dead_code
 for func in `cat dead_code `; do find . -type f -name "*.py" -print0 | xargs -0 grep "^[ \t]*def $func(.*):.*$"; done | sort > dead_funcs
 
+# db backups
+for d in {0..6}; do rdiff-backup -r ${d}D /srv/backup/liam.atizo.com/var/lib/pgsql/9.0/backups/pg_dumpall.sql.gz pg_dumpall.sql.gz-$d; done
+for d in {0..6}; do echo mv pg_dumpall.sql.gz-$d pg_dumpall_$(date -d "$d day ago" "+%Y-%m-%d").sql.gz; done
+for f in pg_dumpall_*.sql.gz; do
+  g=$(echo $f | sed -n "s/pg_dumpall_\(.*\).sql.gz/contact-\1.csv/p");
+  echo -e "Id\tSender\tReceiver\r" > $g;
+  zcat $f  | grep COPY\ accounts_contact -A 10000 | grep "^.\.$" -B10000 | grep -v accounts_contact | grep -v "\\\\\." | sort -n | grep -v "f$" | sed "s/\tt$//" | sed 's/$/\r/' >> $g;
+done
+
+# replace newlines in csv fields
+sed ':a;N;$!ba;s/\n//g' old.csv | sed 's/\r/\r\n/g' > new.csv
+
 # Start platform
 cd ~/workspace/atizo-platform/src/atizo/; ./manage.py celeryd -v 2 -E -B -l INFO
 cd ~/workspace/atizo-platform/scripts/; ./runserver.sh
