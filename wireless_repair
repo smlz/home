@@ -1,4 +1,0 @@
-cd tmp/2010_07_16_RT2860_Linux_STA_v2.4.0.0/
-make
-cp os/linux/rt2860sta.ko /lib/modules/$(uname -r)/kernel/drivers/staging/rt2860/
-
