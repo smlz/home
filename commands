@@ -14,6 +14,12 @@ for d in *; do vorbisgain --album --fast "$d"/*.ogg; done
 for d in *; do mp3gain -s i "$d"/*.mp3; done
 for f in *m4a; do mplayer -ao pcm:file="${f/.m4a/.wav}" "$f"; done
 
+find . -regex ".*\(ogg\|mp3\)$" | while read f; do
+    if ! mutagen-inspect $f | grep -qsi replaygain_track_peak; then
+        echo $f;
+    fi;
+done | cut -d/ -f 2-3 | sort -u
+
 for f in *.HDTV.XviD-AFG.avi; do mencoder $f -ovc xvid -xvidencopts \
 bitrate=1000:autoaspect:threads=8 -vf pp=lb -vf scale=480:270 -oac mp3lame \
 -lameopts fast:preset=standard -o ${f/.HDTV.XviD-AFG/}; done
