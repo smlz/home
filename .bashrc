@@ -132,6 +132,8 @@ export VIRTUAL_ENV_DISABLE_PROMPT=TRUE
 gitshortcuts=~/workspace/atizo-platform/scripts/git-shortcuts.rc
 test -f $gitshortcuts && source $gitshortcuts
 
+. ~/workspace/atizo-platform-env/src/django/extras/django_bash_completion
+
 true
 
 MAXWELL2_ROOT=/home/marco/tmp/maxwell;export MAXWELL2_ROOT; # ADDED BY INSTALLER - DO NOT EDIT OR DELETE THIS COMMENT - 667B9C26-80AA-A570-F0F2-0F1B4747D88F 90B8FBF6-1950-98F5-1597-2314AB9B4E39
