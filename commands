@@ -42,7 +42,6 @@ done
 sed ':a;N;$!ba;s/\n//g' old.csv | sed 's/\r/\r\n/g' > new.csv
 
 # Start platform
+/home/marco/workspace/atizo-platform/scripts/jstruct.py
 cd ~/workspace/atizo-platform/src/atizo/; ./manage.py celeryd -v 2 -E -B -l INFO
 cd ~/workspace/atizo-platform/scripts/; ./runserver.sh
-sshfs marco@shares.atizo.org:/ shares/
-/home/marco/workspace/atizo-platform/scripts/jstruct.py
