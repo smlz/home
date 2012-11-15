@@ -10,15 +10,7 @@
   "store": {
     "adapter": "sqlite",
     "sqlite": {
-      "location": "/tmp/jsbin.db"
-    },
-    "mysql": {
-      "host": "localhost",
-      "user": "root",
-      "password": "",
-      "database": "jsbin",
-      "charset": "utf8mb4",
-      "collate": "utf8mb4_unicode_ci"
+      "location": "/home/marco/.jsbin.db"
     }
   },
   "session": {
@@ -39,7 +31,7 @@
     }
   },
   "server": {
-    "logger": "default"
+    "logger": "dev"
   },
   "notify": {
     "errors": [],
