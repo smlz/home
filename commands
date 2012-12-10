@@ -20,9 +20,11 @@ find . -regex ".*\(ogg\|mp3\)$" | while read f; do
     fi;
 done | cut -d/ -f 2-3 | sort -u
 
-for f in *.HDTV.XviD-AFG.avi; do mencoder $f -ovc xvid -xvidencopts \
-bitrate=1000:autoaspect:threads=8 -vf pp=lb -vf scale=480:270 -oac mp3lame \
--lameopts fast:preset=standard -o ${f/.HDTV.XviD-AFG/}; done
+for f in *.m??; do
+    mencoder "$f" -ovc xvid -xvidencopts bitrate=1000:autoaspect:threads=8 \
+    -vf pp=lb -vf scale=480:270 -oac mp3lame -lameopts fast:preset=standard \
+    -o "$f".avi;
+done
 
 # locate dead python code
 # todo: ignore *-steps.py, ignore 'def clean_*'
