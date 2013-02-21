@@ -43,6 +43,12 @@ done
 # replace newlines in csv fields
 sed ':a;N;$!ba;s/\n//g' old.csv | sed 's/\r/\r\n/g' > new.csv
 
+# Django updates
+git fetch --all
+git branch --no-track atizo-platform-1.3.${new} atizo-platform-1.3.${current}
+git rebase upstream/stable/1.3.x atizo-platform-1.3.${new}
+git push origin atizo-platform-1.3.${new}
+
 # Start platform
 cd ~/workspace/atizo-platform/; compass watch --boring  --trace ~/workspace/atizo-platform/src/atizo/compass/dev
 /home/marco/workspace/atizo-platform/scripts/jstruct.py
