@@ -55,3 +55,5 @@ cd ~/workspace/atizo-platform/; compass watch --boring  --trace ~/workspace/atiz
 jsbin --config ~/.jsbin.config.json
 cd ~/workspace/atizo-platform/src/atizo/; ./manage.py celeryd -v 2 -E -B -l INFO
 cd ~/workspace/atizo-platform/scripts/; ./runserver.sh
+cd ~/workspace/atizo-platform/src/atizo/; ./manage.py runserver platform.dev:8090 --settings=atizo.settings
+cd ~/workspace/atizo-platform/src/atizo/; ./manage.py runprofileserver platform.dev:8090 --settings=atizo.settings --prof-path=/home/marco/prof/ --kcachegrind
