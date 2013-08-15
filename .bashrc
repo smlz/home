@@ -135,3 +135,6 @@ test -f $gitshortcuts && source $gitshortcuts
 . ~/workspace/atizo-platform-env/src/django/extras/django_bash_completion
 
 true
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
