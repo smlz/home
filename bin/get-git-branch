@@ -1,11 +1,13 @@
 git branch &>/dev/null && {
-  echo -en "[\e[0;36m"`git branch | grep '^*' | sed -e 's/* //'`"\e[0;39m|"
+  branch=$(git branch | grep '^*' | sed -e 's/* //')
+  echo -en "["
+#\e[0;36m"`git branch | grep '^*' | sed -e 's/* //'`"\e[0;39m|"
   if git status | grep -q "working directory clean"; then
-    echo -en "\e[0;32mclean\e[0;39m"
+    echo -en "\e[0;32m$branch\e[0;39m"
   elif git status | grep -q "nothing added to commit but untracked files present"; then
-    echo -en "\e[0;33mdusty\e[0;39m"
+    echo -en "\e[0;33m$branch\e[0;39m"
   else
-    echo -en "\e[0;31mdirty\e[0;39m"
+    echo -en "\e[0;31m$branch\e[0;39m"
   fi
   echo -en "]"
 }
