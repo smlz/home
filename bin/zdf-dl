@@ -1,0 +1,17 @@
+#!/bin/sh
+# ZDFmediathek-zu-rtmpdump-Wrapper
+# Verwendung:
+# ./zdfmediathek.sh 1279266
+#
+# 2011, by Funatiker, under Terms of GPL
+#
+
+#Pfad zu rtmpdump setzen
+rtmpdump="rtmpdump"
+#URL zum metafile (mp4, rtmp, veryhigh) zur gegebenen ID ermitteln
+metafile=$(wget -q -O- "http://www.zdf.de/ZDFmediathek/xmlservice/web/beitragsDetails?id=$1" | grep -A2 h264_aac_mp4_rtmp_zdfmeta_http | grep -A1 veryhigh | grep url | cut -d\> -f2 | cut -d\< -f 1)
+#Aus dem metafile die rtmp-URL entnehmen
+rtmp=$(wget -q -O- "$metafile" | grep url | cut -d\> -f2 | cut -d\< -f1)
+#den Dateinamen aus der rtmp-URL kopieren
+mp4=$(basename $rtmp)
+$rtmpdump -o $mp4 -r $rtmp
