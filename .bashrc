@@ -132,7 +132,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT=TRUE
 gitshortcuts=~/workspace/atizo-platform/scripts/git-shortcuts.rc
 test -f $gitshortcuts && source $gitshortcuts
 
-. ~/workspace/atizo-platform-env/src/django/extras/django_bash_completion
+. ~/bin/django_bash_completion
 
 true
 
