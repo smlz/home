@@ -1,0 +1,72 @@
+from django.db import connection
+connection.queries
+
+from django.db.models import Count
+from atizo.apps.accounts.models import UserDeactivation
+reduce(lambda lst, (reasons, count): (lst.update([(r, lst.get(r, 0) + count) for r in reasons.split(',')]), lst)[-1], UserDeactivation.objects.exclude(reasons=None).values_list('reasons').annotate(rcount=Count('reasons')).order_by('-rcount'), {})
+
+
+# rename 
+for i in Idea.objects.filter(project__container__slug="cmsa"): 
+    if i.image: 
+        old_name = i.image.name
+        new_name = old_name.replace("uploads/containers/cendresmetaux/", "uploads/containers/cmsa/")
+        if old_name != new_name:
+            print old_name
+            i.image = new_name
+            print i.image.name
+            i.save()
+            
+            
+mod = get_model('auth', 'user')
+mod._meta.local_fields
+
+
+
+
+
+# sql logging
+import sqlparse
+from django.db import connections, connection
+
+def log_sql(msg="", silent=True):
+    global __last_query_idx
+    return
+    try:
+        print "*" * len(msg)
+        print "%s" % msg
+        print "*" * len(msg)
+        if not silent:
+            for query in connection.queries[__last_query_idx:]:
+                print sqlparse.format(query['sql'], reindent=True, keyword_case='upper')
+                print "%ss" % query['time']
+                print
+        print "%d SQL Queries issued." % len(connection.queries[__last_query_idx:])
+        print "%fs spent in Queries." % reduce(lambda acc, q: acc + float(q['time']), connection.queries[__last_query_idx:], 0)
+        print
+        print
+        __last_query_idx = len(connection.queries)
+    except:
+        pass
+__last_query_idx = 0
+
+
+# get rid of old contact news #
+###############################
+delete from board_contactnews where created_date < now() - interval '1 month';-- order by created_date asc limit 10;sele
+
+# DEPRECATION STUFF #
+#####################
+
+@register.filter(is_safe=True)
+@stringfilter
+
+
+# print sql time and ... #
+##########################
+from django.db import connection
+total_time = 0.0
+for query in connection.queries:
+     total_time = total_time + float(query['time'])
+print "\033[1;32m[TOTAL TIME: %s seconds]\033[0m" % str(total_time)
+print "\033[1;32m[TOTAL QUERIES: %d]\033[0m" % len(connection.queries)
