@@ -57,3 +57,7 @@ cd ~/workspace/atizo-platform/src/atizo/; ./manage.py celeryd -v 2 -E -B -l INFO
 cd ~/workspace/atizo-platform/scripts/; ./runserver.sh
 cd ~/workspace/atizo-platform/src/atizo/; ./manage.py runserver platform.dev:8090 --settings=atizo.settings
 cd ~/workspace/atizo-platform/src/atizo/; ./manage.py runprofileserver platform.dev:8090 --settings=atizo.settings --prof-path=/home/marco/prof/ --kcachegrind
+
+#Python stuff
+import math;e=math.e;pi=math.pi;i=complex(0,1);round_complex=lambda c:complex(round(c.real,10),round(c.imag,10))
+round_complex(e ** (i * pi) + 1) == 0
