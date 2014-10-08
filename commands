@@ -61,3 +61,6 @@ cd ~/workspace/atizo-platform/src/atizo/; ./manage.py runprofileserver platform.
 #Python stuff
 import math;e=math.e;pi=math.pi;i=complex(0,1);round_complex=lambda c:complex(round(c.real,10),round(c.imag,10))
 round_complex(e ** (i * pi) + 1) == 0
+
+# Git stuff
+git status | grep -P "^\t" | cut -f2 >> .gitignore
