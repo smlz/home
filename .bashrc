@@ -97,7 +97,7 @@ fi
 alias rm='rm -i'
 alias less=/usr/share/vim/vim74/macros/less.sh
 alias ls='LANG=C ls --color=auto --group-directories-first --human-readable'
-alias linus="echo pause | mplayer -slave -fs -idle -fixed-vo ~/Downloads/Linus\ Torvalds\ To\ Nvidia\ -\ \'Fuck\ You\'.mp4 -ss 10 -endpos 2.5"
+alias linus="echo pause | mplayer -slave -fs -idle -fixed-vo ~/Downloads/Linus_Torvalds_To_Nvidia_-_Fuck_You.mp4 -ss 10 -endpos 2.5 > /dev/null 2>&1"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
