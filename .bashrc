@@ -137,8 +137,10 @@ test -f $gitshortcuts && source $gitshortcuts
 
 true
 
+export PATH="~/bin:$PATH"
+
 ### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+#export PATH="/usr/local/heroku/bin:$PATH"
 
 
 cd() {
