@@ -139,3 +139,14 @@ true
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+
+cd() {
+  builtin cd "$@"
+  if pwd | egrep -q 'code/.+'; then
+    virtualenv="`pwd | sed -E 's@^(.*code/[^/]+).*$@\1@'`-env/bin/activate"
+    test -f "$virtualenv" && source "$virtualenv"
+  else
+    type deactivate &>/dev/null && deactivate
+  fi
+}
