@@ -91,9 +91,9 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls -CF'
 alias rm='rm -i'
 alias less=/usr/share/vim/vim74/macros/less.sh
 alias ls='LANG=C ls --color=auto --group-directories-first --human-readable'
