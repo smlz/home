@@ -1,0 +1,23 @@
+#!/bin/sh
+
+mnt="/media/marco/FD71-883A"
+tmp=$(mktemp)
+out=$(gvfs-mount -d $(readlink -f /dev/disk/by-uuid/FD71-883A))
+while [ "$(echo $out | cut -d' ' -f 1-5)" = "No volume for device file" ]; do
+  sleep 1
+  out=$(gvfs-mount -d $(readlink -f /dev/disk/by-uuid/FD71-883A))
+done
+nano -$ -L "$tmp"
+#gedit --new-window "$tmp"
+
+if [ ! -s "$tmp" ]; then
+	echo "Noting to do."
+	rm "$tmp"
+elif [ -d "$mnt" ]; then
+	mv  "$tmp" "$mnt"/sms
+	sync
+	echo Done.
+else
+	echo Phone card not found
+	echo SMS saved at "$tmp"
+fi
