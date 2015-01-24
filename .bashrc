@@ -81,7 +81,7 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+    #alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -91,12 +91,12 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
+alias ls='LANG=C ls --color=auto --group-directories-first --human-readable'
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
 alias rm='rm -i'
 alias less=/usr/share/vim/vim74/macros/less.sh
-alias ls='LANG=C ls --color=auto --group-directories-first --human-readable'
 alias linus="echo pause | mplayer -slave -fs -idle -fixed-vo ~/bin/Linus_Torvalds_To_Nvidia_-_Fuck_You.mp4 -ss 10 -endpos 2.5 > /dev/null 2>&1"
 
 # Add an "alert" alias for long running commands.  Use like so:
@@ -137,15 +137,32 @@ test -f $gitshortcuts && source $gitshortcuts
 
 true
 
+source <(npm completion)
+
 ### Added by the Heroku Toolbelt
 #export PATH="/usr/local/heroku/bin:$PATH"
 
-cd() {
-  builtin cd "$@"
+export ORIGINAL_PATH=$PATH
+
+update_path() {
+  # npm: add npm_modules/.bin to $PATH
+  if [[ -v ORIGINAL_PATH && -d "$(npm bin)" ]]; then
+    export PATH=$(npm bin):$PATH
+  fi
+
+  # run Python's virtualenv activate/deactivate
   if pwd | egrep -q 'code/.+'; then
     virtualenv="`pwd | sed -E 's@^(.*code/[^/]+).*$@\1@'`-env/bin/activate"
     test -f "$virtualenv" && source "$virtualenv"
   else
     type deactivate &>/dev/null && deactivate
   fi
+  true
 }
+
+cd() {
+  builtin cd "$@"
+  update_path
+}
+
+update_path
