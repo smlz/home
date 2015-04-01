@@ -64,3 +64,6 @@ round_complex(e ** (i * pi) + 1) == 0
 
 # Git stuff
 git status | grep -P "^\t" | cut -f2 >> .gitignore
+
+# slides
+pdfjam --suffix 2up --nup 1x2 --frame true --scale 0.85 --delta "0cm 1cm" ~/web-t-1.pdf
