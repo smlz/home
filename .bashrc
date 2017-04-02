@@ -147,9 +147,14 @@ export ORIGINAL_PATH=$PATH
 
 update_path() {
   # npm: add npm_modules/.bin to $PATH
-  if [[ -v ORIGINAL_PATH && -d "$(npm bin)" ]]; then
-    export PATH=$(npm bin):$PATH
-  fi
+  P=$(pwd)
+  while [[ $P != / ]]; do
+      if [[ -d $P/node_modules && -d $P/node_modules/.bin ]]; then
+          export PATH=$P/node_modules/.bin:$ORIGINAL_PATH
+          break
+      fi
+      P=$(dirname $P)
+  done
 
   # activate python virtual env if .venv exists
   P=$(pwd)
