@@ -57,7 +57,7 @@ if [ "$color_prompt" = yes ]; then
     else 
         if [ -n "$SSH_CONNECTION" ]; then
             PS1='${debian_chroot:+($debian_chroot)}\[\033[01;33m\]\u@\h\[\033[00m\]: \[\033[01;34m\]\w\[\033[00m\]\n\$ '
-        elif [ -n "$STY" ]; then
+        elif [ -n "$STY" ] || [ -n "$TMUX" ]; then
             PROMPT_COMMAND='__PS1_RET=$?;'
             PS1='\[\033[01;34m\]\W/\[\033[00m\] $(test $__PS1_RET != 0 && echo -ne "\[\033[01;31m\]")$\[\033[00m\] '
         else
