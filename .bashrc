@@ -128,10 +128,11 @@ export ORIGINAL_PATH=$PATH
 
 update_path() {
   # npm: add npm_modules/.bin to $PATH
+  export PATH=$ORIGINAL_PATH
   P=$(pwd)
   while [[ $P != / ]]; do
       if [[ -d $P/node_modules && -d $P/node_modules/.bin ]]; then
-          export PATH=$P/node_modules/.bin:$ORIGINAL_PATH
+          NODE_MODULES_PATH=$P/node_modules/.bin
           break
       fi
       P=$(dirname $P)
@@ -149,6 +150,11 @@ update_path() {
   done
   if [[ $FOUND_VENV != yes ]]; then
       type deactivate &>/dev/null && deactivate
+  fi
+
+  if [[ -v NODE_MODULES_PATH ]]; then
+      export PATH=$NODE_MODULES_PATH:$PATH
+      unset NODE_MODULES_PATH
   fi
   unset FOUND_VENV
   unset P
