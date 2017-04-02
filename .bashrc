@@ -54,7 +54,7 @@ fi
 if [ "$color_prompt" = yes ]; then
     if [ "$(id -u)" = 0 ]; then
         PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]: \[\033[01;34m\]\w\[\033[00m\]\n\$ '
-    else 
+    else
         if [ -n "$SSH_CONNECTION" ]; then
             PS1='${debian_chroot:+($debian_chroot)}\[\033[01;33m\]\u@\h\[\033[00m\]: \[\033[01;34m\]\w\[\033[00m\]\n\$ '
         elif [ -n "$STY" ] || [ -n "$TMUX" ]; then
@@ -98,7 +98,6 @@ alias la='ls -A'
 alias l='ls -CF'
 alias rm='rm -i'
 alias less=/usr/share/vim/vim74/macros/less.sh
-alias linus="echo pause | mplayer -slave -fs -idle -fixed-vo ~/bin/Linus_Torvalds_To_Nvidia_-_Fuck_You.mp4 -ss 10 -endpos 2.5 > /dev/null 2>&1"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -120,28 +119,10 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-
-export GTK_IM_MODULE=ibus
-export XMODIFIERS=@im=ibus
-export QT_IM_MODULE=ibus
 export EDITOR=nano
 export PYMACS_PYTHON=/usr/bin/python
 # Disable default virtualenv PS1 modification
 export VIRTUAL_ENV_DISABLE_PROMPT=TRUE
-
-#[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
-gitshortcuts=~/workspace/atizo-platform/scripts/git-shortcuts.rc
-test -f $gitshortcuts && source $gitshortcuts
-
-. ~/bin/django_bash_completion
-
-true
-
-source <(npm completion)
-
-### Added by the Heroku Toolbelt
-#export PATH="/usr/local/heroku/bin:$PATH"
 
 export ORIGINAL_PATH=$PATH
 
