@@ -151,13 +151,21 @@ update_path() {
     export PATH=$(npm bin):$PATH
   fi
 
-  # run Python's virtualenv activate/deactivate
-  if pwd | egrep -q 'code/.+'; then
-    virtualenv="`pwd | sed -E 's@^(.*code/[^/]+).*$@\1@'`-env/bin/activate"
-    test -f "$virtualenv" && source "$virtualenv"
-  else
-    type deactivate &>/dev/null && deactivate
+  # activate python virtual env if .venv exists
+  P=$(pwd)
+  while [[ $P != / ]]; do
+      if [[ -d $P/.venv && -f $P/.venv/bin/activate ]]; then
+          source $P/.venv/bin/activate
+          FOUND_VENV=yes
+          break
+      fi
+      P=$(dirname $P)
+  done
+  if [[ $FOUND_VENV != yes ]]; then
+      type deactivate &>/dev/null && deactivate
   fi
+  unset FOUND_VENV
+  unset P
   true
 }
 
