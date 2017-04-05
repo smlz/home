@@ -130,8 +130,8 @@ update_path() {
   # npm: add npm_modules/.bin to $PATH
   export PATH=$ORIGINAL_PATH
   P=$(pwd)
-  while [[ $P != / ]]; do
-      if [[ -d $P/node_modules && -d $P/node_modules/.bin ]]; then
+  while [[ "$P" != / ]]; do
+      if [[ -d "$P/node_modules" && -d "$P/node_modules/.bin" ]]; then
           NODE_MODULES_PATH=$P/node_modules/.bin
           break
       fi
@@ -140,16 +140,18 @@ update_path() {
 
   # activate python virtual env if .venv exists
   P=$(pwd)
-  while [[ $P != / ]]; do
-      if [[ -d $P/.venv && -f $P/.venv/bin/activate ]]; then
-          source $P/.venv/bin/activate
+  while [[ "$P" != / ]]; do
+      if [[ -d "$P/.venv" && -f "$P/.venv/bin/activate" ]]; then
+          if [[ "$P/.venv" != "$VIRTUAL_ENV" ]]; then
+              source $P/.venv/bin/activate
+          fi
           FOUND_VENV=yes
           break
       fi
       P=$(dirname $P)
   done
-  if [[ $FOUND_VENV != yes ]]; then
-      type deactivate &>/dev/null && deactivate
+  if [[ "$FOUND_VENV" != yes && -v VIRTUAL_ENV ]]; then
+      deactivate
   fi
 
   if [[ -v NODE_MODULES_PATH ]]; then
